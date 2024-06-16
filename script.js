@@ -29,10 +29,8 @@ const checkWin = function (){
             if (symbolCounter == 3){
                 return true;
             }
-            else{
-                return false;
-            }
         }
+        return false;
     };
     const vertical = () => {
         //each column incerements by 1
@@ -50,26 +48,30 @@ const checkWin = function (){
             if (symbolCounter == 3){
                 return true;
             }
-            else{
-                return false;
-            }
         }
+        return false;
     };
     const majorDiagnol = () => {
-
+        let first = gameboard.board[0];
+        let second = gameboard.board[4];
+        let third = gameboard.board[8];
+        return first == second && first == third;
     };
     const minorDiagnol = () => {
-
+        let first = gameboard.board[2];
+        let second = gameboard.board[4];
+        let third = gameboard.board[6];
+        return first == second && first == third;
     };
     return {horizontal, vertical, majorDiagnol, minorDiagnol};
 
 }();
 
-gameboard.move(1, "X");
+gameboard.move(2, "X");
 gameboard.move(4, "X");
-gameboard.move(7, "X");
+gameboard.move(6, "X");
 console.log(gameboard.board)
-console.log(checkWin.vertical());
+console.log(checkWin.minorDiagnol());
 
 
 
