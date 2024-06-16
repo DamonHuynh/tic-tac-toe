@@ -9,13 +9,12 @@ const gameboard = function(){
     const board = [null, null, null, null, null, null, null, null, null];
     const move = (tileValue, symbol) =>  board[tileValue] = symbol;
     const resetBoard = () => board = [null, null, null, null, null, null, null, null, null];
-
     return {board, move, resetBoard};
 }();
 
 const checkWin = function (){
     const horizontal = function() {
-        let wins = 0;
+        //each row increments by 3
         for (let row = 0; row < 9; row+=3){
             let symbolCounter = 0;
             let firstSymbol = gameboard.board[row];
@@ -36,7 +35,25 @@ const checkWin = function (){
         }
     };
     const vertical = () => {
-
+        //each column incerements by 1
+        for (let column = 0; column < 3; column++){
+            let symbolCounter = 0;
+            let firstSymbol = gameboard.board[column];
+            for (let tile = 0; tile < 9; tile+=3){
+                if (gameboard.board[tile + column] == null){
+                    continue;
+                }
+                if (gameboard.board[tile + column] == firstSymbol){
+                    symbolCounter++;
+                }
+            }
+            if (symbolCounter == 3){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     };
     const majorDiagnol = () => {
 
@@ -48,9 +65,11 @@ const checkWin = function (){
 
 }();
 
-
+gameboard.move(1, "X");
+gameboard.move(4, "X");
+gameboard.move(7, "X");
 console.log(gameboard.board)
-console.log(checkWin.horizontal());
+console.log(checkWin.vertical());
 
 
 
