@@ -8,7 +8,11 @@ function createPlayer(symbol){
 const gameboard = function(){
     const board = [null, null, null, null, null, null, null, null, null];
     const move = (tileValue, symbol) =>  board[tileValue] = symbol;
-    const resetBoard = () => board = [null, null, null, null, null, null, null, null, null];
+    const resetBoard = () => {
+        for (let i = 0; i < 9; i++){
+            board[i] = null;
+        }
+    };
     return {board, move, resetBoard};
 }();
 
@@ -83,6 +87,7 @@ const gameController = function() {
     const gameOver = () =>{
         if (checkWin.checkAll()){
             resetBoard();
+            playerMoves();
         }
     }
 
@@ -90,6 +95,8 @@ const gameController = function() {
         tiles.forEach((tile) => {
             tile.textContent = "";
         });
+        gameboard.resetBoard();
+
     }
 
     const playerMoves = () =>{
@@ -105,6 +112,7 @@ const gameController = function() {
                 }
                 moveCount++;
                 tile.removeEventListener("mousedown", move);
+                console.log(gameboard.board);
                 gameOver();
             });
         });
@@ -113,12 +121,7 @@ const gameController = function() {
     return {playerMoves, resetBoard};
 }();
 
-
-
-console.log(gameboard.board)
-console.log(checkWin.checkAll());
 gameController.playerMoves();
-
 
 
 
