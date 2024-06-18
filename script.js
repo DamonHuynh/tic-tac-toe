@@ -85,9 +85,8 @@ const gameController = function() {
     let moveCount = 0;
 
     const gameOver = () =>{
-        if (checkWin.checkAll()){
+        if (checkWin.checkAll() || moveCount == 9){
             resetBoard();
-            playerMoves();
         }
     }
 
@@ -96,24 +95,27 @@ const gameController = function() {
             tile.textContent = "";
         });
         gameboard.resetBoard();
+        moveCount = 0;
 
     }
 
     const playerMoves = () =>{
         tiles.forEach((tile) => {
-            tile.addEventListener("mousedown" , function move(){ 
-                if (moveCount % 2 == 0){
-                    tile.textContent = "X";
-                    gameboard.move(tile.id, "X");
+            tile.addEventListener("mousedown", () => { 
+                if (gameboard.board[tile.id] == null){
+                    if (moveCount % 2 == 0){
+                        tile.textContent = "X";
+                        gameboard.move(tile.id, "X");
+                    }
+                    else{
+                        tile.textContent = "O";
+                        gameboard.move(tile.id, "O");
+                    }
+                    console.log(gameboard.board);
+                    console.log(moveCount);
+                    moveCount++;
+                    gameOver();
                 }
-                else{
-                    tile.textContent = "O";
-                    gameboard.move(tile.id, "O");
-                }
-                moveCount++;
-                tile.removeEventListener("mousedown", move);
-                console.log(gameboard.board);
-                gameOver();
             });
         });
     }
