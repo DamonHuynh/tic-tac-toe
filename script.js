@@ -55,23 +55,62 @@ const checkWin = function (){
         let first = gameboard.board[0];
         let second = gameboard.board[4];
         let third = gameboard.board[8];
-        return first == second && first == third;
+        return first != null && (first == second && first == third);
     };
     const minorDiagnol = () => {
         let first = gameboard.board[2];
         let second = gameboard.board[4];
         let third = gameboard.board[6];
-        return first == second && first == third;
+        return first != null && (first == second && first == third);
     };
-    return {horizontal, vertical, majorDiagnol, minorDiagnol};
-
+    const checkAll = () => {
+        let wins = 
+            horizontal() +
+            vertical() +
+            majorDiagnol() +
+            minorDiagnol();
+        return wins > 0;
+    };
+    return {checkAll};
 }();
 
-gameboard.move(2, "X");
-gameboard.move(4, "X");
-gameboard.move(6, "X");
+
+
+const gameController = function() {
+    const tiles = document.querySelectorAll(".tile");
+    let moveCount = 0;
+
+    const playerMoves = () =>{
+        tiles.forEach((tile) => {
+            tile.addEventListener("mousedown" , function move(){ 
+                if (moveCount % 2 == 0){
+                    tile.textContent = "X";
+                }
+                else{
+                    tile.textContent = "O";
+                }
+                moveCount++;
+                tile.removeEventListener("mousedown", move);
+                
+            });
+        });
+    }
+
+    const resetBoard = () => {
+        tiles.forEach((tile) => {
+            tile.textContent = "";
+        });
+    }
+    return {playerMoves, resetBoard};
+}();
+
+
+gameboard.move(0, "X");
+gameboard.move(3, "X");
+gameboard.move(8, "X");
 console.log(gameboard.board)
-console.log(checkWin.minorDiagnol());
+console.log(checkWin.checkAll());
+gameController.playerMoves();
 
 
 

@@ -1,0 +1,16 @@
+.board{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: max(250px, 25em);
+    height: max(250px, 25em);
+
+    
+}
+
+.tile{
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
