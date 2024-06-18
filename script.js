@@ -80,20 +80,10 @@ const gameController = function() {
     const tiles = document.querySelectorAll(".tile");
     let moveCount = 0;
 
-    const playerMoves = () =>{
-        tiles.forEach((tile) => {
-            tile.addEventListener("mousedown" , function move(){ 
-                if (moveCount % 2 == 0){
-                    tile.textContent = "X";
-                }
-                else{
-                    tile.textContent = "O";
-                }
-                moveCount++;
-                tile.removeEventListener("mousedown", move);
-                
-            });
-        });
+    const gameOver = () =>{
+        if (checkWin.checkAll()){
+            resetBoard();
+        }
     }
 
     const resetBoard = () => {
@@ -101,13 +91,30 @@ const gameController = function() {
             tile.textContent = "";
         });
     }
+
+    const playerMoves = () =>{
+        tiles.forEach((tile) => {
+            tile.addEventListener("mousedown" , function move(){ 
+                if (moveCount % 2 == 0){
+                    tile.textContent = "X";
+                    gameboard.move(tile.id, "X");
+                }
+                else{
+                    tile.textContent = "O";
+                    gameboard.move(tile.id, "O");
+                }
+                moveCount++;
+                tile.removeEventListener("mousedown", move);
+                gameOver();
+            });
+        });
+    }
+
     return {playerMoves, resetBoard};
 }();
 
 
-gameboard.move(0, "X");
-gameboard.move(3, "X");
-gameboard.move(8, "X");
+
 console.log(gameboard.board)
 console.log(checkWin.checkAll());
 gameController.playerMoves();
