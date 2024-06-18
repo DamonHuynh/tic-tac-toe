@@ -83,11 +83,31 @@ const checkWin = function (){
 const gameController = function() {
     const tiles = document.querySelectorAll(".tile");
     let moveCount = 0;
+    const player1 = createPlayer("X");
+    const player2 = createPlayer("O");
+    const player1Score = document.querySelector(".player1Score");
+    const player2Score = document.querySelector(".player2Score");
 
     const gameOver = () =>{
-        if (checkWin.checkAll() || moveCount == 9){
+        if (checkWin.checkAll()){
+            if (moveCount % 2 == 0){
+                player2.addWin();
+                player1Score.textContent = `${player1.wins}`;
+            }
+            else{
+                player1.addWin();
+            }
             resetBoard();
-        }
+            if (moveCount == 9){
+                resetBoard();
+            }
+            updateScore();
+        }  
+    }
+
+    const updateScore = () => {
+        player1Score.textContent = `${player1.getWins()}`;
+        player2Score.textContent = `${player2.getWins()}`;
     }
 
     const resetBoard = () => {
@@ -95,8 +115,6 @@ const gameController = function() {
             tile.textContent = "";
         });
         gameboard.resetBoard();
-        moveCount = 0;
-
     }
 
     const playerMoves = () =>{
@@ -105,11 +123,11 @@ const gameController = function() {
                 if (gameboard.board[tile.id] == null){
                     if (moveCount % 2 == 0){
                         tile.textContent = "X";
-                        gameboard.move(tile.id, "X");
+                        gameboard.move(tile.id, player1.symbol);
                     }
                     else{
                         tile.textContent = "O";
-                        gameboard.move(tile.id, "O");
+                        gameboard.move(tile.id, player2.symbol);
                     }
                     console.log(gameboard.board);
                     console.log(moveCount);
