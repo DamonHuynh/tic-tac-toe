@@ -12,14 +12,27 @@ body{
     justify-content: space-around;
     width: max(250px, 25em);
 }
+.player1, .player2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 75px;
+    
+}
+
+.symbols{
+    display: flex;
+    width: max(250px, 25em);
+    justify-content: space-around;
+}
 
 .board{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    width: max(250px, 25em);
-    height: max(250px, 25em);
-
+    width: 25em;
+    height: 25em;
     
 }
 
@@ -30,3 +43,10 @@ body{
     align-items: center;
 }
 
+.x, .o{
+    display: none;
+}
+
+.x, .o{
+    width: 5em;
+}

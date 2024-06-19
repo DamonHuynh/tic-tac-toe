@@ -67,12 +67,22 @@ const checkWin = function (){
         let third = gameboard.board[6];
         return first != null && (first == second && first == third);
     };
+
+    const draw = () => {
+        for (let  i = 0; i < 9; i++){
+            if (gameboard.board[i] == null ){
+                return false;
+            }
+        }
+        return true;
+    }
     const checkAll = () => {
         let wins = 
             horizontal() +
             vertical() +
             majorDiagnol() +
-            minorDiagnol();
+            minorDiagnol() +
+            draw();
         return wins > 0;
     };
     return {checkAll};
@@ -87,6 +97,10 @@ const gameController = function() {
     const player2 = createPlayer("O");
     const player1Score = document.querySelector(".player1Score");
     const player2Score = document.querySelector(".player2Score");
+    const x = document.querySelector(".x").cloneNode(true);
+    const o = document.querySelector(".o").cloneNode(true);
+    x.style.display = "block";
+    o.style.display = "block";
 
     const gameOver = () =>{
         if (checkWin.checkAll()){
@@ -98,10 +112,13 @@ const gameController = function() {
                 player1.addWin();
             }
             resetBoard();
-            if (moveCount == 9){
+            if (moveCount % 8){
                 resetBoard();
             }
             updateScore();
+        }
+        if (player1.getWins() == 3 || player2.getWins() == 3){
+            alert("meow");
         }  
     }
 
@@ -122,11 +139,11 @@ const gameController = function() {
             tile.addEventListener("mousedown", () => { 
                 if (gameboard.board[tile.id] == null){
                     if (moveCount % 2 == 0){
-                        tile.textContent = "X";
+                        tile.appendChild(x.cloneNode(true));
                         gameboard.move(tile.id, player1.symbol);
                     }
                     else{
-                        tile.textContent = "O";
+                        tile.appendChild(o.cloneNode(true));
                         gameboard.move(tile.id, player2.symbol);
                     }
                     console.log(gameboard.board);
