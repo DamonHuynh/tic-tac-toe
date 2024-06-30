@@ -1,9 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+ES+Deco:wght@100..400&display=swap');
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 body{
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    
+    font-family: 'Montserrat';
     height: 100vh;
 }
 
@@ -12,13 +58,20 @@ body{
     justify-content: space-around;
     width: max(250px, 25em);
 }
+.players{
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+}
 .player1, .player2{
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    height: 75px;
-    
+    width: 15vw;
+}
+
+.player1score, .player2score{
+    font-size: 2em;
 }
 
 .symbols{
@@ -41,12 +94,13 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 3.5rem;
 }
 
 .x, .o{
     display: none;
 }
 
-.x, .o{
-    width: 5em;
+.symbol{
+    font-size: 3.5em;
 }

@@ -69,8 +69,8 @@ const checkWin = function (){
     };
 
     const draw = () => {
-        for (let  i = 0; i < 9; i++){
-            if (gameboard.board[i] == null ){
+        for (let i = 0; i < 9; i++){
+            if (gameboard.board[i] == null){
                 return false;
             }
         }
@@ -81,11 +81,10 @@ const checkWin = function (){
             horizontal() +
             vertical() +
             majorDiagnol() +
-            minorDiagnol() +
-            draw();
+            minorDiagnol();
         return wins > 0;
     };
-    return {checkAll};
+    return {checkAll, draw};
 }();
 
 
@@ -95,12 +94,8 @@ const gameController = function() {
     let moveCount = 0;
     const player1 = createPlayer("X");
     const player2 = createPlayer("O");
-    const player1Score = document.querySelector(".player1Score");
-    const player2Score = document.querySelector(".player2Score");
-    const x = document.querySelector(".x").cloneNode(true);
-    const o = document.querySelector(".o").cloneNode(true);
-    x.style.display = "block";
-    o.style.display = "block";
+    const player1Score = document.querySelector(".player1score");
+    const player2Score = document.querySelector(".player2score");
 
     const gameOver = () =>{
         if (checkWin.checkAll()){
@@ -112,10 +107,10 @@ const gameController = function() {
                 player1.addWin();
             }
             resetBoard();
-            if (moveCount % 8){
-                resetBoard();
-            }
             updateScore();
+        }
+        else if (checkWin.draw()){ 
+            resetBoard();
         }
         if (player1.getWins() == 3 || player2.getWins() == 3){
             alert("meow");
@@ -139,12 +134,12 @@ const gameController = function() {
             tile.addEventListener("mousedown", () => { 
                 if (gameboard.board[tile.id] == null){
                     if (moveCount % 2 == 0){
-                        tile.appendChild(x.cloneNode(true));
-                        gameboard.move(tile.id, player1.symbol);
+                        tile.textContent = "X";
+                        gameboard.move(tile.id, "X");
                     }
                     else{
-                        tile.appendChild(o.cloneNode(true));
-                        gameboard.move(tile.id, player2.symbol);
+                        tile.textContent = "O";
+                        gameboard.move(tile.id, "O");
                     }
                     console.log(gameboard.board);
                     console.log(moveCount);
