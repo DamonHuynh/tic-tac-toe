@@ -104,3 +104,7 @@ body{
 .symbol{
     font-size: 3.5em;
 }
+
+.won{
+    background-color: grey;
+}
