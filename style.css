@@ -68,6 +68,9 @@ body{
     justify-content: space-between;
     align-items: center;
     width: 15vw;
+    box-shadow: 0px 1px 5px grey;
+    border-radius: 10px;
+    padding:1em;
 }
 
 .player1score, .player2score{
@@ -106,5 +109,60 @@ body{
 }
 
 .won{
-    background-color: grey;
+    background-color: #F5B0CB;
+}
+
+.turn{
+    background-color: #F5B0CB;
+}
+
+.dialog{
+    display: flex;
+    height: 10em;
+    width: 10em;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0px 1px 5px grey;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 2em;
+}
+
+button{
+    border-radius: 5px;
+    border:none;
+    box-shadow: 0px 1px 5px grey;
+    font-size: .5em;
+    height: 2em;
+    width: 10em;
+    background-color: #F5B0CB;
+}
+
+button:active{
+    position: relative;
+    top:1px;
+}
+button:hover{
+    background-color: rgba(0, 140, 255, 0.5);
+}
+
+.tile:hover{
+    background-color: #F5B0CB;
+}
+
+.t0 , .t1, .t2{
+    border-top: none;
+}
+.t0 , .t3, .t6{
+    border-left: none;
+}
+.t6 , .t7, .t8{
+    border-bottom: none;
+}
+.t2 , .t5, .t8{
+    border-right: none;
 }

@@ -2,7 +2,8 @@ function createPlayer(symbol){
     let wins = 0;
     const getWins = () => wins;
     const addWin = () => wins++;
-    return {symbol, getWins, addWin};
+    const resetWins = () => wins = 0;
+    return {symbol, getWins, addWin, resetWins};
 }
 
 const gameboard = function(){
@@ -112,6 +113,8 @@ const gameController = function() {
      });
     const player1 = createPlayer("X");
     const player2 = createPlayer("O");
+    const player1card = document.querySelector(".player1");
+    const player2card = document.querySelector(".player2");
     const player1Score = document.querySelector(".player1score");
     const player2Score = document.querySelector(".player2score");
     const dialog = document.querySelector("dialog");
@@ -132,19 +135,22 @@ const gameController = function() {
                 player1.addWin();
                 winner = "X";
             }
-            updateScore();
             highlightBoard(results);
             dialog.showModal();
+            dialog.classList.toggle("dialog");
             restartGame(winner);
         }
         else if (checkWin.draw()){ 
             winner = "Draw";
             highlightBoard(checkWin.draw());
             dialog.showModal();
+            dialog.classList.toggle("dialog");
             restartGame(winner);
         }
         if (player1.getWins() == 3 || player2.getWins() == 3){
-            alert("meow");
+            player1.resetWins();
+            player2.resetWins();
+            dialogText.textContent = `${winner} Wins!!`
         }  
     }
 
@@ -159,6 +165,7 @@ const gameController = function() {
         }
     }
 
+
     const restartGame = (winner) => {
         if (winner == "Draw"){
             dialogText.textContent = `DRAW`;
@@ -168,6 +175,7 @@ const gameController = function() {
         }
         restart.addEventListener("click", () => {
             dialog.close();
+            dialog.classList.remove("dialog");
             gameboard.resetBoard();
             tiles.forEach((tile) => {
                 tile.textContent = "";
@@ -175,22 +183,28 @@ const gameController = function() {
             for (let i = 0; i < 9; i++){
                 allTiles[i].classList.remove("won");               
             }
-            
+            updateScore();
         });
     }
 
 
     const playerMoves = () =>{
+        player1card.classList.add("turn");
         tiles.forEach((tile) => {
             tile.addEventListener("mousedown", () => { 
                 if (gameboard.board[tile.id] == null){
                     if (moveCount % 2 == 0){
                         tile.textContent = "X";
                         gameboard.move(tile.id, "X");
+                        player1card.classList.remove("turn");
+                        player2card.classList.toggle("turn");
                     }
                     else{
                         tile.textContent = "O";
                         gameboard.move(tile.id, "O");
+                        player2card.classList.remove("turn");
+                        player1card.classList.toggle("turn");
+
                     }
                     console.log(gameboard.board);
                     console.log(moveCount);
@@ -203,7 +217,6 @@ const gameController = function() {
 
     return {playerMoves};
 }();
-
 
 gameController.playerMoves();
 
